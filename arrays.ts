@@ -1,4 +1,4 @@
-import {ICharacter} from "./src/models/ICharacter";
+import type {ICharacter} from "./src/models/ICharacter";
 
 export const simpsons: ICharacter[] = [
     {
