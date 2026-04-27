@@ -1,1 +1,1 @@
-INIT
+Lesson - Lesson 2 - useEffect hooks + fetch
