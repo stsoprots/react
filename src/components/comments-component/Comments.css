@@ -1,0 +1,8 @@
+div {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 20px;
+    background: #0f172a;
+    border-radius: 18px;
+}
