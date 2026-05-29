@@ -13,7 +13,7 @@ export const Products = () => {
         }
 
         fetchProducts();
-    })
+    },[])
 
     return (
         <div>
