@@ -1,1 +1,90 @@
-@import "tailwindcss";
+/* Прості базові стилі, темна тема */
+
+body {
+    margin: 0;
+    background: #181a1f;
+    color: #e5e5e5;
+    font-family: sans-serif;
+}
+
+.main-layout {
+    min-height: 100vh;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+}
+.main-layout>h2{
+    text-align: center;
+}
+
+.pagination-layout {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.posts-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+.post-card {
+    background: #232631;
+    border: 1px solid #333644;
+    border-radius: 8px;
+    padding: 14px;
+}
+
+.post-card__avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.post-card__name {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 6px 0 2px;
+}
+
+.post-card__meta {
+    font-size: 13px;
+    color: #a0a0a0;
+    margin: 0;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.pagination__status {
+    font-size: 14px;
+    color: #a0a0a0;
+}
+
+.pagination__btn {
+    font-size: 14px;
+    color: #e5e5e5;
+    background: #232631;
+    border: 1px solid #333644;
+    border-radius: 6px;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.pagination__btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.state-message {
+    text-align: center;
+    padding: 40px 0;
+    color: #a0a0a0;
+}
