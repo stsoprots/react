@@ -13,6 +13,10 @@ export const PaginationComponent = () => {
                 }
             }}>prev</button>
 
+            <span className="pagination__status">
+                Page {currentPage}
+            </span>
+
             <button className="pagination__btn" onClick={()=>{
                 setSearchParams({page: (++currentPage).toString()})
             }}>next</button>

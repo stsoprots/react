@@ -5,6 +5,7 @@ export const PaginationLayout = () => {
     return (
         <div className="pagination-layout">
             <Outlet/>
+
             <PaginationComponent/>
         </div>
     );

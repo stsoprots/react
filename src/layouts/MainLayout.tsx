@@ -8,10 +8,10 @@ export const MainLayout = () => {
         <div className='main-layout'>
             <h2>Main Layout</h2>
 
-            {location.pathname !== '/list/posts' && (
+            {location.pathname !== '/list/products' && (
                 <button className='pagination__btn' onClick={() =>
-                    navigate('/list/posts')
-                }>Пости тут</button>)}
+                    navigate('/list/products')
+                }>Асортимент</button>)}
             <Outlet/>
         </div>
     );

@@ -14,7 +14,8 @@ body {
     align-items: center;
     flex-direction: column;
 }
-.main-layout>h2{
+
+.main-layout > h2 {
     text-align: center;
 }
 
@@ -24,35 +25,36 @@ body {
     padding: 20px;
 }
 
-.posts-list {
+.products-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 16px;
 }
 
-.post-card {
+.product-card {
     background: #232631;
     border: 1px solid #333644;
     border-radius: 8px;
     padding: 14px;
+    text-align: center;
 }
 
-.post-card__avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+.product-card img {
+    width: 100%;
+    max-width: 140px;
+    border-radius: 6px;
+    margin-bottom: 10px;
 }
 
-.post-card__name {
-    font-size: 16px;
-    font-weight: bold;
-    margin: 6px 0 2px;
+.product-card h3 {
+    font-size: 15px;
+    margin: 8px 0 4px;
 }
 
-.post-card__meta {
-    font-size: 13px;
-    color: #a0a0a0;
-    margin: 0;
+.product-card p {
+    margin: 4px 0;
+    font-size: 14px;
+    color: #c0c0c0;
 }
 
 .pagination {
