@@ -14,7 +14,7 @@ export const CarsComponent = () => {
 
 
     return (
-        <div>
+        <div className="cars-list">
             {
                 cars.map((car) => (<CarComponent key={car.id} car={car} />))
             }

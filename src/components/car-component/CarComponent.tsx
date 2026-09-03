@@ -7,9 +7,10 @@ type PostPropType = {
 
 export const CarComponent: FC<PostPropType> = ({car}) => {
     return (
-        <div>
-            <p>{car.id} - {car.brand}</p>
-            <hr/>
+        <div className="car-card">
+            <h3>{car.brand}</h3>
+            <p>Price: {car.price} $</p>
+            <p>Year: {car.year}</p>
         </div>
     );
 };

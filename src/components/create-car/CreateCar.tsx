@@ -6,7 +6,7 @@ import {carValidator} from "../../validators/carValidator.ts";
 
 export const CreateCar = () => {
 
-    const { register, handleSubmit, formState: { errors } } = useForm<ICar>({
+    const { register, handleSubmit, formState: { errors, isValid } } = useForm<ICar>({
         mode: 'all',
         resolver: joiResolver(carValidator)
     });
@@ -18,20 +18,20 @@ export const CreateCar = () => {
 
     return (
         <div>
-            <form onSubmit={handleSubmit(createHandler)}>
-                <div>
+            <form className="car-form" onSubmit={handleSubmit(createHandler)}>
+                <div className="form-field">
                     <input type="text" {...register('brand')}/>
-                    <div>{errors.brand?.message}</div>
+                    <div className="error-msg" >{errors.brand?.message}</div>
                 </div>
-                <div>
-                    <input type="number" {...register('price')}/>
-                    <div>{errors.price?.message}</div>
+                <div className="form-field">
+                    <input type="number" {...register('price', {valueAsNumber: true})}/>
+                    <div className="error-msg" >{errors.price?.message}</div>
                 </div>
-                <div>
-                    <input type="number" {...register('year')}/>
-                    <div>{errors.year?.message}</div>
+                <div className="form-field">
+                    <input type="number" {...register('year', {valueAsNumber: true})}/>
+                    <div className="error-msg">{errors.year?.message}</div>
                 </div>
-                <button>save car</button>
+                <button type="submit" disabled={!isValid}>save car</button>
             </form>
         </div>
     );
