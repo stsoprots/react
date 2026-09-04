@@ -3,6 +3,7 @@ import * as Joi from "joi";
 export const carValidator = Joi.object({
     brand: Joi.string()
         .pattern(new RegExp('^[a-zA-Zа-яА-яёЁіІїЇєЄҐґ]{1,20}$'))
+        .required()
         .messages({'string.pattern.base': 'Your brand value didnt match pattern'}),
     price: Joi.number()
         .integer()
