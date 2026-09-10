@@ -1,1 +1,1 @@
-INIT
+Lessons - Lesson7 - lifecycle memo
