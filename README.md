@@ -1,1 +1,1 @@
-Lessons - Lesson7 - lifecycle memo
+Lessons - Lesson7 - useCallback
