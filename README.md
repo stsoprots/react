@@ -1,1 +1,1 @@
-Lessons - Lesson7 - useCallback
+Lessons - Lesson7 - useMemo
