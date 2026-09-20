@@ -1,19 +1,17 @@
-import {useAppSelector} from "../main.tsx";
-import {useDispatch} from "react-redux";
 import {useEffect} from "react";
-import {postSliceActions} from "../slices/postSlice.tsx";
+import {useAppSelector} from "../redux/hooks/useAppSelector.tsx";
+import {useAppDispatch} from "../redux/hooks/useAppDispatch.tsx";
+import {postSliceActions} from "../redux/slices/postSlice/postSlice.ts";
+
 
 export const PostsPage = () => {
     const {posts} = useAppSelector(({postSlice}) => postSlice);
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
-        fetch('https://jsonplaceholder.typicode.com/posts')
-            .then(value => value.json())
-            .then(value => {
-                dispatch(postSliceActions.loadPosts(value));
-            });
+        dispatch(postSliceActions.loadPosts())
     }, []);
+
 
     return (
         <div>
