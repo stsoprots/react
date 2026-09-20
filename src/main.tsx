@@ -5,6 +5,7 @@ import {Provider, useSelector} from "react-redux";
 import {router} from "./router/router.tsx";
 import type {IUser} from "./models/IUser.ts";
 import {configureStore, createSlice, type PayloadAction} from "@reduxjs/toolkit";
+import {postSlice} from "./slices/postSlice.tsx";
 
 type UserSliceType = {
     users: IUser[];
@@ -29,8 +30,8 @@ export const userSliceActions = {
 
 const store = configureStore({
     reducer: {
-        userSlice: userSlice.reducer
-        // postSlice: null
+        userSlice: userSlice.reducer,
+        postSlice: postSlice.reducer
     }
 })
 
