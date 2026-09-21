@@ -1,18 +1,18 @@
 import {useParams} from "react-router-dom";
-import {useEffect} from "react";
 import {useAppSelector} from "../redux/hooks/useAppSelector.tsx";
 import {useAppDispatch} from "../redux/hooks/useAppDispatch.tsx";
-import {userSliceActions} from "../redux/slices/userSlice/userSlice.ts";
+import {useEffect} from "react";
+import {postSliceActions} from "../redux/slices/postSlice/postSlice.ts";
 
-export const UserPage = () => {
+export const PostPage = () => {
 
     const {id} = useParams();
 
-    const {user, loadState} = useAppSelector(({userSlice}) => userSlice);
+    const {post, loadState} = useAppSelector(({postSlice}) => postSlice);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (id) dispatch(userSliceActions.loadUser(id));
+        if (id) dispatch(postSliceActions.loadPost(id));
 
     }, [id]);
 
@@ -20,7 +20,7 @@ export const UserPage = () => {
     return (
         <div>
             {!loadState && <div>Loading</div>}
-            {user && <div>{user.id} {user.name}</div>}
+            {post && <div>{post.id}. {post.title} {post.body}<hr/></div>}
         </div>
     );
 };

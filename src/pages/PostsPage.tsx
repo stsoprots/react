@@ -5,7 +5,7 @@ import {postSliceActions} from "../redux/slices/postSlice/postSlice.ts";
 
 
 export const PostsPage = () => {
-    const {posts} = useAppSelector(({postSlice}) => postSlice);
+    const {posts, loadState} = useAppSelector(({postSlice}) => postSlice);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -15,6 +15,7 @@ export const PostsPage = () => {
 
     return (
         <div>
+            {!loadState && <div>Loading</div>}
             {
                 posts.map((post, index) => {
                     return <div key={index}><div><b>{post.title}</b></div><div>{post.body}</div><hr/></div>

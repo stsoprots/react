@@ -1,1 +1,1 @@
-Lessons - Lesson8 - redux asyncThunk part 1
+Lessons - Lesson8 - redux asyncThunk part 2
