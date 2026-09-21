@@ -1,4 +1,3 @@
-import type {IUser} from "../../../models/IUser.ts";
 import {createSlice, type PayloadAction} from "@reduxjs/toolkit";
 import type IPost from "../../../models/IPost.ts";
 import {loadPosts} from "../../services/api.sevice.ts";
@@ -17,10 +16,10 @@ export const postSlice = createSlice({
     reducers: {},
     extraReducers: builder =>
         builder
-            .addCase(loadPosts.fulfilled, (state, action: PayloadAction<IPosts[]>) => {
+            .addCase(loadPosts.fulfilled, (state, action: PayloadAction<IPost[]>) => {
                 state.posts = action.payload;
             })
-            .addCase(loadPosts.rejected, (state, action: PayloadAction<IUser[]>) => {
+            .addCase(loadPosts.rejected, (state, action) => {
                 console.log(state);
                 console.log(action);
             })

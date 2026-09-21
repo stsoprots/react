@@ -19,7 +19,7 @@ export const userSlice = createSlice({
             .addCase(loadUsers.fulfilled, (state, action: PayloadAction<IUser[]>) => {
             state.users = action.payload;
         })
-            .addCase(loadUsers.rejected, (state, action: PayloadAction<IUser[]>) => {
+            .addCase(loadUsers.rejected, (state, action) => {
                 console.log(state);
                 console.log(action);
             })
