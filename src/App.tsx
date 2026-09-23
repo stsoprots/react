@@ -1,71 +1,91 @@
 // ==== App.tsx ======
-// 1. Керує полями вводу — зберігає текст заголовка та тіла нового поста у стейті. (14-15:)
-// 2. Підключає хуки — завантажує юзерів (useGetUsers) та бере функцію створення поста (useCreatePost). (17-19:)
-// 3. Відправляє форму — по кліку запускає мутацію (mutateAsync) з ID обраного юзера та текстом з інпутів. (23-36:)
-// 4. Показує завантаження або результат — виводить "Loading ...", а після успішного створення показує створений пост. (38-48:)
-// 5. Малює інтерфейс — рендерить список юзерів із кнопками та два інпути для заповнення поста. (51-65:)
+// 1. Керує пагінацією — зберігає ліміт та відступ (offset) у стейті для перемикання сторінок. (16-19:)
+// 2. Завантажує пости — викликає хук useGetPaginatedPosts, передаючи поточні налаштування пагінації. (21-25:)
+// 3. Змінює сторінку — функція handleChangePage оновлює offset у стейті та примусово перезапитує дані через refetch. (29-32:)
+// 4. Відображає пости — виводить список постів або статус завантаження (Loading ...). (34-48:)
+// 5. Керує навігацією — рендерить кнопки («Перша», «Попередня», «Наступна», «Остання») і блокує їх на крайніх сторінках. (49-83:)
 
-import './App.css';
+import { Fragment, useState } from 'react';
+import {useGetPaginatedPosts} from "./api/query/posts/useGetPaginatedPosts.ts";
 
-import { useGetUsers } from './api/query/users/useGetUsers.ts';
-import { useCreatePost } from './api/mutations/posts/useCreatePost.ts';
-import { useState } from 'react';
+
+const DEFAULT_LIMIT = 10;
+const TOTAL_PAGES = 10;
 
 const App = () => {
-    const [postTitle, setPostTitle] = useState<string>('');
-    const [postBody, setPostBody] = useState<string>('');
+    const [pagination, setPagination] = useState<{ limit: number; offset: number }>({
+        limit: DEFAULT_LIMIT,
+        offset: 0,
+    });
 
-    const { data: users, isFetching } = useGetUsers();
+    const {
+        isFetching: isPaginatedPostFetching,
+        refetch,
+        data: paginatedPosts,
+    } = useGetPaginatedPosts(pagination);
 
-    const { mutateAsync, data: post } = useCreatePost();
+    console.log(paginatedPosts);
 
-    console.log({ postTitle, postBody });
-
-    const handleCreatePost = async ({ userId }: { userId: string }) => {
-        try {
-            const response = await mutateAsync({ userId, body: postBody, title: postTitle });
-
-            if (response) {
-                console.log(response);
-
-                return;
-            }
-
-            console.log('No response');
-        } catch (e) {
-            console.error(e);
-        }
+    const handleChangePage = async (offset: number) => {
+        setPagination((prevState) => ({ ...prevState, offset }));
+        await refetch();
     };
 
-    if (isFetching) return <div>Loading ...</div>;
+    if (isPaginatedPostFetching) return <div>Loading ...</div>;
 
-    if (post) {
-        return (
-            <>
-                <div>{post.id}</div>
-                <div>{post.title}</div>
-                <div>{post.body}</div>
-                <div>{post.userId}</div>
-            </>
-        );
+    if (!paginatedPosts) {
+        return null;
     }
 
     return (
-        <div>
-            {users?.map((user) => {
-                return (
-                    <div key={user.id}>
-                        {user.id} --- {user.name}
-                        <button onClick={async () => await handleCreatePost({ userId: user.id })}>
-                            Create post by user id
-                        </button>
-                    </div>
-                );
-            })}
+        <>
+            {paginatedPosts.map((item) => (
+                <Fragment key={item.id}>
+                    <div>title: {item.title}</div>
+                    <div>body: {item.body}</div>
+                    <div>userId: {item.userId}</div>
+                </Fragment>
+            ))}
+            <div>
+                <button
+                    onClick={() => handleChangePage(0)}
+                    disabled={pagination.offset === 0}
+                >
+                    Перша
+                </button>
+                <button
+                    onClick={() =>
+                        handleChangePage(pagination.offset - pagination.limit)
+                    }
+                    disabled={pagination.offset === 0}
+                >
+                    Попередня
+                </button>
 
-            <input value={postTitle} onChange={(e) => setPostTitle(e.target.value)} />
-            <input value={postBody} onChange={(e) => setPostBody(e.target.value)} />
-        </div>
+                <span>Сторінка {pagination.offset / pagination.limit + 1}</span>
+
+                <button
+                    onClick={() =>
+                        handleChangePage(pagination.offset + pagination.limit)
+                    }
+                    disabled={
+                        pagination.offset === (TOTAL_PAGES - 1) * pagination.limit
+                    }
+                >
+                    Наступна
+                </button>
+                <button
+                    onClick={() =>
+                        handleChangePage((TOTAL_PAGES - 1) * pagination.limit)
+                    }
+                    disabled={
+                        pagination.offset === (TOTAL_PAGES - 1) * pagination.limit
+                    }
+                >
+                    Остання
+                </button>
+            </div>
+        </>
     );
 };
 
