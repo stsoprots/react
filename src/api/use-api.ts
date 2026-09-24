@@ -23,7 +23,7 @@ interface Output<TData, TBody> {
 const API_URL = 'https://jsonplaceholder.typicode.com';
 
 export const useApi = <T, TBody = any>(): Output<T, TBody> => {
-    const getApiPath = (route: string): string => `${API_URL}/${route}`;
+    const getApiPath = (route: string): string => `${API_URL}${route}`;
 
     const get = async ({ route }: { route: string }): Promise<T> => {
         try {
